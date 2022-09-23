@@ -1,6 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Register = () => {
+  const [firstName, setFirstName] = useState()
+  const [lastName, setLastName] = useState()
+  const [email, setEmail] = useState()
+  const [password, setPassword] = useState()
+
+  const handleSubmit = (e)=>{
+    e.preventDefault()
+    console.log(firstName ,lastName, email,password)
+  }
   return (
     <div className='registerDiv p-4  d-flex justify-content-between'>
       <div className='imgDiv d-none d-lg-block'>
@@ -8,7 +17,7 @@ const Register = () => {
       </div>
       <div className='m-auto mt-3 col-lg-5 col-10'>
         <h2 className='text-center text-danger display-2 fw-bold'>Register</h2>
-        <form className='' action=''>
+        <form onSubmit={handleSubmit} className='' action=''>
           <div className='mt-2 d-flex flex-column '>
             <label className='mt-3 fw-bold fs-4' htmlFor=''>
               First Name
@@ -18,6 +27,7 @@ const Register = () => {
               placeholder='Please your first name...'
               type='text'
               required
+              onChange={(e)=>setFirstName(e.target.value)}
             />
           </div>
           <div className='d-flex flex-column'>
@@ -29,6 +39,7 @@ const Register = () => {
               placeholder='Please your last name...'
               type='text'
               required
+              onChange={(e)=>setLastName(e.target.value)}
             />
           </div>
           <div className='d-flex flex-column'>
@@ -40,6 +51,7 @@ const Register = () => {
               placeholder='Please Your email adress'
               type='email'
               required
+              onChange={(e)=>setEmail(e.target.value)}
             />
           </div>
           <div className='d-flex flex-column'>
@@ -51,6 +63,7 @@ const Register = () => {
               placeholder='Please your password'
               type='password'
               required
+              onChange={(e)=>setPassword(e.target.value)}
             />
           </div>
           <input
