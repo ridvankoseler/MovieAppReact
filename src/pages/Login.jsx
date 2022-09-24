@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 
+
 const Login = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
+
   const handleLogin = (e) => {
     e.preventDefault();
     console.log(email, password);
+    
   };
   return (
     <div className='registerDiv p-4  d-flex justify-content-between'>

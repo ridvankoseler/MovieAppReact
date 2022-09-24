@@ -1,14 +1,20 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { createUser } from "../auth/firebase";
 
 const Register = () => {
   const [firstName, setFirstName] = useState()
   const [lastName, setLastName] = useState()
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
+  const navigate = useNavigate()
 
   const handleSubmit = (e)=>{
     e.preventDefault()
     console.log(firstName ,lastName, email,password)
+    createUser(email, password ,navigate);
+    //?navigate i burda giriş yapıldığında menüye gitmek için kullanıyoruz ancak hata alsak bile menüye gidior biz ise sadece hata almadığımızda gitmek istediğimiz için onu parametre olarak göderiyoruz firebase ye firebase try catch bloğunun içinde kullanıyoruz.
+    // navigate('/')
   }
   return (
     <div className='registerDiv p-4  d-flex justify-content-between'>
