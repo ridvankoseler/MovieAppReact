@@ -7,6 +7,11 @@ const Navbar = () => {
   const navigate = useNavigate();
   const {currentUser} = useContext(AuthContext)
   //context deki currentUseri alıp burada kullanabiliriz.
+
+
+  //?Burada CustomHooklu kısmı yapıcaz
+  // const {currentUser} = useAuthContext()
+  
   // const currentUser={displayName:'Rıdvan Köseler'}
   // const currentUser = false;
   return (

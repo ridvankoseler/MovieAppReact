@@ -3,6 +3,13 @@ import { createContext } from "react";
 
 export const AuthContext = createContext();
 
+
+//?Custom Hook da oluşturabiliriz
+// export const useAuthContext = () => {
+//   return useContext(AuthContext)
+//   //Burda return ettiğimiz için kullanacağımız yerde direk kullanırız.
+// }
+
 const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(false);
   return (
