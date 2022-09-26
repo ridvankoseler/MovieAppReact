@@ -3,6 +3,9 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+  updateProfile,
 } from "firebase/auth";
 
 // TODO: Replace the following with your app's Firebase project configuration
@@ -21,35 +24,59 @@ const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
-  
 
 //! burası register signup yaptığımız yer
-export const createUser = async (email,password , navigate)=>{
+export const createUser = async (email, password, navigate ,displayName) => {
   //?Yeni bir kullanıcı oluşturmak için kull. firebase methodu.
   //navigate i burdan çektik ve hata almadığımızda menüye gitmek için burda kullandık.
-    try {
-       let userCredential = await createUserWithEmailAndPassword(auth, email, password);
-       navigate('/')
-       console.log(userCredential)
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  try {
+    let userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
+    //?Kullanıcı profilini güncellemek için kullanılan firebase methodu
+    await updateProfile(auth.currentUser, {
+      displayName: displayName,
+    });
+    navigate("/");
+    console.log(userCredential);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 //!burası login signin yaptığımız yer.
-  export const signIn =  async (email,password,navigate)=>{
-    try {
-      let userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      console.log(userCredential);
-      navigate('/')
-    } catch (error) {
-      
-    }
-  }
+export const signIn = async (email, password, navigate) => {
+  try {
+    let userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
-  
+    navigate("/");
+    // sessionStorage.setItem('user' ,JSON.stringify(userCredential.user))
+    console.log(userCredential);
+  } catch (error) {}
+};
+
+//! burası set an authetication yani kull.bilgisini kontrol edip datayı aldığımız yer.
+export const userObserver = (setCurrentUser) => {
+  onAuthStateChanged(auth, (user) => {
+    //?kullanıcının signin olup olmadığını takip eden ve kullanıcı değiştiğinde yeni kullanıcıyı response olarak dönen firebase metodu.
+    if (user) {
+      setCurrentUser(user);
+    } else {
+      // User is signed out
+      // ...
+      setCurrentUser(false);
+    }
+  });
+};
+
+//!Burası logout kısmı
+export const logOut = () => {
+  signOut(auth);
+};

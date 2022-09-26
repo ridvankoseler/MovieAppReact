@@ -1,6 +1,7 @@
 import React from "react";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { logOut } from "../auth/firebase";
 import { AuthContext } from "../context/AuthContext";
 
 const Navbar = () => {
@@ -9,7 +10,7 @@ const Navbar = () => {
   //context deki currentUseri alıp burada kullanabiliriz.
 
 
-  //?Burada CustomHooklu kısmı yapıcaz
+  //?Burada CustomHooklu kısmı yapıcaz ama kullanmıcaz.
   // const {currentUser} = useAuthContext()
   
   // const currentUser={displayName:'Rıdvan Köseler'}
@@ -26,7 +27,7 @@ const Navbar = () => {
           {currentUser ? (
             <>
               <h5 className='me-4 mt-2'>{currentUser.displayName}</h5>
-              <button className='me-2 text-white btn btn-outline-secondary'>
+              <button onClick={()=>logOut()} className='me-2 text-white btn btn-outline-secondary'>
                 Logout
               </button>
             </>

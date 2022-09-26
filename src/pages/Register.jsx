@@ -11,8 +11,10 @@ const Register = () => {
 
   const handleSubmit = (e)=>{
     e.preventDefault()
+    const displayName = `${firstName} ${lastName}`
+    //burada display name bizim user bilgimizin içinde null olarak 
     console.log(firstName ,lastName, email,password)
-    createUser(email, password ,navigate);
+    createUser(email, password ,navigate ,displayName);
     //?navigate i burda giriş yapıldığında menüye gitmek için kullanıyoruz ancak hata alsak bile menüye gidior biz ise sadece hata almadığımızda gitmek istediğimiz için onu parametre olarak göderiyoruz firebase ye firebase try catch bloğunun içinde kullanıyoruz.
     // navigate('/')
   }
