@@ -6,6 +6,8 @@ import {
   onAuthStateChanged,
   signOut,
   updateProfile,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 
 // TODO: Replace the following with your app's Firebase project configuration
@@ -80,3 +82,25 @@ export const userObserver = (setCurrentUser) => {
 export const logOut = () => {
   signOut(auth);
 };
+
+
+//!Burası google ile otomatik girilirkenki method
+
+//ilk önce firebase.com dan =>Authentication => sign-in-method => enable Google
+//?Google ile girişi enable yap.
+//=>Authentication => sign-in-method => Authorized domains => add domain
+//?projeyi deploy ettikten sonra google sign-in çalışması için domain listesine deploy linkini ekle
+export const signUpProvider = (navigate)=>{
+  //?Google ile giriş yapılması için kullanılan firebase methodu
+  const provider = new GoogleAuthProvider();
+
+  //? Açılır pencere ile giriş yapılması için kullanılan firebase metodu
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      console.log(result)
+      navigate('/')
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { signIn } from "../auth/firebase";
+import { signIn, signUpProvider } from "../auth/firebase";
 import { useNavigate } from "react-router-dom";
+
 
 const Login = () => {
   const [email, setEmail] = useState();
@@ -13,6 +14,10 @@ const Login = () => {
     console.log(email, password);
     signIn(email,password,navigate)
   };
+
+  const handleProviderLogin =()=>{
+    signUpProvider(navigate)
+  }
   return (
     <div className='registerDiv p-4  d-flex justify-content-between'>
       <div className='imgDiv d-none d-lg-block'>
@@ -55,7 +60,7 @@ const Login = () => {
           />
         </form>
         <div className="text-center">
-          <button className='btn btn-danger mt-4'>Continue with Google</button>
+          <button className='btn btn-danger mt-4' onClick={handleProviderLogin}>Continue with Google</button>
         </div>
       </div>
     </div>
