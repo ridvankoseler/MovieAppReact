@@ -1,9 +1,33 @@
 .registerDiv{
     background-color: rgb(235, 230, 230);
 }
-@media (max-width:1000px) {
-    .imgDiv{
-        width: 25%;
+
+
+
+.imgDiv{
+        width: 20%;
     }
+
+
+
+.tag {
+  border-radius: 5px;
+  padding: 0.7rem;
+  font-weight: bold;
+}
+
+.tag.green {
+  background-color: #1b5e20;
+}
+
+.tag.orange {
+  background-color: #f57f17;
+}
+
+.tag.red {
+  background-color: #7f0000;
+}
+
+.movieCard{
     
 }

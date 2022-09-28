@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import MovieCard from "../components/MovieCard";
 
 const API_KEY = process.env.REACT_APP_TMDB_KEY;
 const FEATURED_API = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}`;
@@ -8,6 +9,8 @@ const Main = () => {
   const [movies, setMovies] = useState([]);
   //
   const [loading, setLoading] = useState(false)
+  const [searchTerm, setSearchTerm] = useState()
+
   useEffect(() => {
     getMovies(FEATURED_API);
   }, []);
@@ -16,19 +19,38 @@ const Main = () => {
     setLoading(true)
     axios
       .get(API)
-      .then((res) => console.log(res.data.results))
+      .then((res) => setMovies(res.data.results))
       .catch((err) => console.log(err))
       .finally(()=>setLoading(false))
   };
+
+  const handleSubmit=(e)=>{
+    e.preventDefault()
+    getMovies(SEARCH_API + searchTerm);
+  }
   return (
-  <div>
-    {loading ? 
-    <div class="spinner-border text-secondary" role="status">
-   <span class="visually-hidden">Loading...</span>
-</div> :(movies?.map((movie=> null)))
-    }
-  </div>
-  )
+    <>
+      <form className='search' onSubmit={handleSubmit}>
+        <input
+          type='search'
+          className='search-input'
+          placeholder='Search a movie...'
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <button type='submit'>Search</button>
+      </form>
+
+      <div>
+        {loading ? (
+          <div class='spinner-border text-secondary' role='status'>
+            <span class='visually-hidden'>Loading...</span>
+          </div>
+        ) : (
+          movies?.map((movie) => <MovieCard key={movie.id} {...movie} />)
+        )}
+      </div>
+    </>
+  );
 };
 
 export default Main;
