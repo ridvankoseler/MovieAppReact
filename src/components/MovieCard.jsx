@@ -17,15 +17,15 @@ const MovieCard = ({poster_path,title,overview,vote_average,id}) => {
     }
   }
   return (
-    <div className='movieCard border border-2 border-danger d-flex justify-content-center'>
-        <img className='imgDiv' src={poster_path ? IMG_API + poster_path : defaultImage} alt="" />
-        <div>
-            <h5>{title}</h5>
-            {currentUser && (<span className={`tag ${setVoteClass(vote_average)}`}>{vote_average}</span>) }
+    <div className='movie border border-2 border-danger d-flex justify-content-center flex-column m-1'>
+        <img className='imgDiv m-auto' src={poster_path ? IMG_API + poster_path : defaultImage} alt="" />
+        <div className='movie-title text-center d-flex justify-content-between px-4 p-2 m-auto  align-items-center px-1'>
+            <h5 className='mt-2 text-center '>{title}</h5>
+            {currentUser && (<span className= {`p-2 tag ${setVoteClass(vote_average)}`}>{vote_average}</span>) }
         </div>
-        <div>
+        <div className='movie-over text-center m-auto'>
           <h2>Overview</h2>
-          <p>{overview}</p>
+          <p className=''>{overview}</p>
         </div>
     </div>
   )
