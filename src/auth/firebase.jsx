@@ -9,6 +9,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
+import { toastErrorNotify, toastSuccessNotify } from "../helpers/ToastNotify";
 
 // TODO: Replace the following with your app's Firebase project configuration
 // See: https://firebase.google.com/docs/web/learn-more#config-object
@@ -42,10 +43,12 @@ export const createUser = async (email, password, navigate ,displayName) => {
     await updateProfile(auth.currentUser, {
       displayName: displayName,
     });
+    toastSuccessNotify("Registered successfully!");
     navigate("/");
+    
     console.log(userCredential);
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    toastErrorNotify(err.message);
   }
 };
 
@@ -59,9 +62,13 @@ export const signIn = async (email, password, navigate) => {
     );
 
     navigate("/");
+    toastSuccessNotify("Logged in successfully!");
     // sessionStorage.setItem('user' ,JSON.stringify(userCredential.user))
     console.log(userCredential);
-  } catch (error) {}
+  } catch (err) {
+    toastErrorNotify(err.message);
+    console.log(err)
+  }
 };
 
 //! burası set an authetication yani kull.bilgisini kontrol edip datayı aldığımız yer.
@@ -99,6 +106,7 @@ export const signUpProvider = (navigate)=>{
     .then((result) => {
       console.log(result)
       navigate('/')
+      toastSuccessNotify("Logged out successfully!");
     })
     .catch((error) => {
       console.log(error);
