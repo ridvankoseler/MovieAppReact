@@ -22,7 +22,7 @@ const MovieCard = ({poster_path,title,overview,vote_average,id}) => {
   return (
     <div onClick={()=>{navigate("/details/"+id) 
     !currentUser && toastWarnNotify("Please log in to search a movie")}} className='movie d-flex justify-content-center flex-column m-2 '>
-        <img className='imgDiv m-auto rounded-4' src={poster_path ? IMG_API + poster_path : defaultImage} alt="" />
+        <img className='imgDiv m-auto rounded-4yarn ' src={poster_path ? IMG_API + poster_path : defaultImage} alt="" />
         <div className='movie-title text-center d-flex justify-content-between px-4 p-1 m-auto  align-items-center px-1'>
             <h5 className='mt-1 text-center '>{title}</h5>
             {currentUser && (<span className= {`p-2 tag ${setVoteClass(vote_average)}`}>{vote_average}</span>) }
